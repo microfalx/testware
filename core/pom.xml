@@ -29,13 +29,22 @@
 
     <parent>
         <groupId>net.tarau.testware</groupId>
-		<artifactId>parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+        <artifactId>parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <name>TestWare - Core</name>
 
     <dependencies>
+        <dependency>
+            <groupId>net.tarau.testware</groupId>
+            <artifactId>spi</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.tarau</groupId>
+            <artifactId>binserde</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

@@ -36,6 +36,11 @@
     <name>TestWare - SPI</name>
 
     <dependencies>
+        <dependency>
+            <groupId>net.tarau.testware</groupId>
+            <artifactId>api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>
