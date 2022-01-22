@@ -3,33 +3,17 @@ package net.tarau.testware.spi.metadata;
 import net.tarau.testware.api.metadata.ClassDescriptor;
 import net.tarau.testware.api.metadata.MethodDescriptor;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
-import java.util.StringJoiner;
 
-import static java.util.Collections.unmodifiableSet;
 import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
 
-public class TestDescriptor implements net.tarau.testware.api.metadata.TestDescriptor {
+public class TestDescriptor extends BaseDescriptor implements net.tarau.testware.api.metadata.TestDescriptor {
 
-    private String displayName;
-    private Set<String> tags;
     private ClassDescriptor classDescriptor;
     private MethodDescriptor methodDescriptor;
 
     public static Builder create(ClassDescriptor classDescriptor, MethodDescriptor methodDescriptor) {
         return new Builder(classDescriptor, methodDescriptor);
-    }
-
-    @Override
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    @Override
-    public Set<String> getTags() {
-        return unmodifiableSet(tags);
     }
 
     @Override
@@ -42,15 +26,17 @@ public class TestDescriptor implements net.tarau.testware.api.metadata.TestDescr
         return methodDescriptor != null ? Optional.of(methodDescriptor) : Optional.empty();
     }
 
+
     @Override
     public String toString() {
-        return new StringJoiner(", ", TestDescriptor.class.getSimpleName() + "[", "]").add("displayName='" + displayName + "'").add("tags=" + tags).add("classDescriptor=" + classDescriptor).add("methodDescriptor=" + methodDescriptor).toString();
+        return "TestDescriptor{" +
+                "classDescriptor=" + classDescriptor +
+                ", methodDescriptor=" + methodDescriptor +
+                "} " + super.toString();
     }
 
-    public static class Builder {
+    public static class Builder extends BaseDescriptor.Builder<Builder, TestDescriptor> {
 
-        private String displayName;
-        private Set<String> tags;
         private final ClassDescriptor classDescriptor;
         private final MethodDescriptor methodDescriptor;
 
@@ -62,23 +48,25 @@ public class TestDescriptor implements net.tarau.testware.api.metadata.TestDescr
             this.methodDescriptor = methodDescriptor;
         }
 
-        public Builder displayName(String displayName) {
-            this.displayName = displayName;
-            return this;
+        private void updateFromAnnotations() {
+            displayName(methodDescriptor.getDisplayName());
+            description(methodDescriptor.getDescription());
+            tags(methodDescriptor.getTags());
+            tags(classDescriptor.getTags());
         }
 
-        public void tags(Set<String> tags) {
-            requireNonNull(tags);
-            this.tags = new HashSet<>(tags);
+        @Override
+        protected TestDescriptor createDescriptor() {
+            return new TestDescriptor();
         }
 
-        public TestDescriptor build() {
-            TestDescriptor descriptor = new TestDescriptor();
+        @Override
+        protected void updateDescriptor(TestDescriptor descriptor) {
+            updateFromAnnotations();
+            super.updateDescriptor(descriptor);
             descriptor.classDescriptor = classDescriptor;
             descriptor.methodDescriptor = methodDescriptor;
-            descriptor.displayName = displayName != null ? displayName : methodDescriptor.getDisplayName();
-            descriptor.tags = tags;
-            return descriptor;
         }
+
     }
 }

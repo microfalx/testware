@@ -7,12 +7,8 @@ import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
 
 public abstract class AnnotationDescriptor {
 
-    private String displayName;
     private Map<Class<? extends Annotation>, Collection<Annotation>> annotations = new HashMap<>();
 
-    public final String getDisplayName() {
-        return displayName;
-    }
 
     public final boolean isAnnotated(Class<? extends Annotation> type) {
         requireNonNull(type);
@@ -32,32 +28,33 @@ public abstract class AnnotationDescriptor {
         return (Collection<A>) annotations.getOrDefault(type, Collections.emptyList());
     }
 
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", AnnotationDescriptor.class.getSimpleName() + "[", "]")
+                .add("annotations=" + annotations)
+                .toString();
+    }
+
     public static abstract class Builder<B extends Builder, D extends AnnotationDescriptor> {
 
-        private String displayName;
         private Map<Class<? extends Annotation>, Collection<Annotation>> annotations = new HashMap<>();
 
         protected abstract D createDescriptor();
 
         protected abstract void updateDescriptor(D descriptor);
 
-        public B displayName(String displayName) {
-            this.displayName = displayName;
-            return (B) this;
-        }
-
-        public <A extends Annotation> B addAnnotation(A annotation) {
+        public <A extends Annotation> B annotation(A annotation) {
             requireNonNull(annotation);
-            annotations.computeIfAbsent(annotation.getClass(), c -> new ArrayList<>()).add(annotation);
+            annotations.computeIfAbsent(annotation.annotationType(), c -> new ArrayList<>()).add(annotation);
             return (B) this;
         }
 
         protected D build() {
             D descriptor = createDescriptor();
-            ((AnnotationDescriptor) descriptor).displayName = displayName;
-            ((AnnotationDescriptor) descriptor).annotations = annotations;
-            updateDescriptor((D) descriptor);
-            return (D) descriptor;
+            AnnotationDescriptor annotationDescriptor = descriptor;
+            updateDescriptor(descriptor);
+            annotationDescriptor.annotations = annotations;
+            return descriptor;
         }
     }
 }

@@ -3,18 +3,18 @@ package net.tarau.testware.api.annotation;
 import java.lang.annotation.*;
 
 /**
- * An annotationn to support multiple {@link Issue Issues}.
+ * An annotation used to tag tests.
  */
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
-public @interface Issues {
+public @interface Tag {
 
     /**
-     * Returns a collection of {@link Issue}
+     * Returns a list of tags.
      *
      * @return a non-null instance
      */
-    Issue[] value();
+    String[] value();
 }
