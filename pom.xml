@@ -26,7 +26,7 @@
     <groupId>net.tarau.testware</groupId>
     <artifactId>parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-	<packaging>pom</packaging>
+    <packaging>pom</packaging>
 
     <parent>
         <groupId>org.apache</groupId>
@@ -48,15 +48,15 @@
         <developerConnection>scm:git:https://github.com/adrian-tarau/testware</developerConnection>
         <url>https://github.com/adrian-tarau/testware/tree/main</url>
     </scm>
-	
-	<modules>
-		<module>api</module>
-		<module>spi</module>
-		<module>core</module>
-		<module>junit</module>
-		<module>reporting</module>
-		<module>maven</module>
-	</modules>
+
+    <modules>
+        <module>api</module>
+        <module>spi</module>
+        <module>core</module>
+        <module>junit</module>
+        <module>reporting</module>
+        <module>maven</module>
+    </modules>
 
     <issueManagement>
         <system>github</system>
@@ -72,6 +72,7 @@
         <assertj.version>3.22.0</assertj.version>
         <jmh.version>1.34</jmh.version>
         <binserde.version>1.0.0-SNAPSHOT</binserde.version>
+        <vresource.version>1.0.0-SNAPSHOT</vresource.version>
     </properties>
 
     <developers>
@@ -90,6 +91,12 @@
                 <groupId>net.tarau</groupId>
                 <artifactId>binserde</artifactId>
                 <version>${binserde.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.tarau.vresource</groupId>
+                <artifactId>core</artifactId>
+                <version>${vresource.version}</version>
             </dependency>
 
             <!-- Tests -->

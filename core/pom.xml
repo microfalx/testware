@@ -45,6 +45,10 @@
             <groupId>net.tarau</groupId>
             <artifactId>binserde</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.tarau.vresource</groupId>
+            <artifactId>core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

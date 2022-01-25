@@ -29,6 +29,15 @@ public interface MetadataAwareDescriptor {
     String getCategory();
 
     /**
+     * Returns the module.
+     * <p>
+     * For multi-module projects, each descriptor will be assigned to a module.
+     *
+     * @return the module, null if a module is not available
+     */
+    String getModule();
+
+    /**
      * Returns the set of all tags in the context of the current descriptor.
      *
      * <p>Tags may be declared directly on the test element or <em>inherited</em>

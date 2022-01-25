@@ -8,7 +8,7 @@ import net.tarau.testware.api.annotation.Tag;
 
 import java.lang.annotation.Annotation;
 
-public class ClassDescriptor extends BaseDescriptor implements net.tarau.testware.api.metadata.ClassDescriptor {
+public final  class ClassDescriptor extends BaseDescriptor implements net.tarau.testware.api.metadata.ClassDescriptor {
 
     private Class<?> testClass;
 

@@ -11,6 +11,7 @@ public abstract class BaseDescriptor extends AnnotationDescriptor implements Met
     private String displayName;
     private String description;
     private String category;
+    private String module;
     private Set<String> tags;
 
     public final String getDisplayName() {
@@ -20,6 +21,11 @@ public abstract class BaseDescriptor extends AnnotationDescriptor implements Met
     @Override
     public final String getDescription() {
         return description;
+    }
+
+    @Override
+    public String getModule() {
+        return module;
     }
 
     @Override
@@ -46,6 +52,7 @@ public abstract class BaseDescriptor extends AnnotationDescriptor implements Met
 
         private String displayName;
         private String description;
+        private String module;
         private String category;
         private Set<String> tags;
 
@@ -64,6 +71,10 @@ public abstract class BaseDescriptor extends AnnotationDescriptor implements Met
             return (B) this;
         }
 
+        public B module(String module) {
+            this.module = module;
+            return (B) this;
+        }
 
         public B tags(String... tags) {
             return tags(Arrays.asList(tags));
@@ -84,6 +95,7 @@ public abstract class BaseDescriptor extends AnnotationDescriptor implements Met
             baseDescriptor.displayName = displayName;
             baseDescriptor.description = description;
             baseDescriptor.category = category;
+            baseDescriptor.module = module;
             baseDescriptor.tags = tags;
         }
     }

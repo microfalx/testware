@@ -1,14 +1,16 @@
 package net.tarau.testware.spi.metadata;
 
+import net.tarau.testware.api.metadata.AnnotationAwareDescriptor;
+
 import java.lang.annotation.Annotation;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
 
-public abstract class AnnotationDescriptor {
+public abstract class AnnotationDescriptor implements AnnotationAwareDescriptor {
 
     private Map<Class<? extends Annotation>, Collection<Annotation>> annotations = new HashMap<>();
-
 
     public final boolean isAnnotated(Class<? extends Annotation> type) {
         requireNonNull(type);
@@ -26,6 +28,11 @@ public abstract class AnnotationDescriptor {
     public final <A extends Annotation> Collection<A> getAnnotations(Class<A> type) {
         requireNonNull(type);
         return (Collection<A>) annotations.getOrDefault(type, Collections.emptyList());
+    }
+
+    @Override
+    public Collection<? extends Annotation> getAnnotations() {
+        return annotations.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
     }
 
     @Override

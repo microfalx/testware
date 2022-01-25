@@ -33,9 +33,14 @@ public interface AnnotationAwareDescriptor {
      *
      * @param type the annotation type to search for
      * @param <A>  the annotation type
-     * @return an {@code Optional} containing the annotation; never {@code null} but
-     * potentially empty
-     * @see #isAnnotated(Class)
+     * @return a collection containing the annotation
      */
     <A extends Annotation> Collection<A> getAnnotations(Class<A> type);
+
+    /**
+     * Returns all annotations registered in the context of the current descriptor.
+     *
+     * @return a collection containing the annotation
+     */
+    Collection<? extends Annotation> getAnnotations();
 }

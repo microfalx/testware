@@ -8,7 +8,7 @@ import net.tarau.testware.api.annotation.Tag;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-public class MethodDescriptor extends BaseDescriptor implements net.tarau.testware.api.metadata.MethodDescriptor {
+public final class MethodDescriptor extends BaseDescriptor implements net.tarau.testware.api.metadata.MethodDescriptor {
 
     private Method testMethod;
 

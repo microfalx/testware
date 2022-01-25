@@ -36,6 +36,11 @@
     <name>TestWare - JUnit</name>
 
     <dependencies>
+        <dependency>
+            <groupId>net.tarau.testware</groupId>
+            <artifactId>core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

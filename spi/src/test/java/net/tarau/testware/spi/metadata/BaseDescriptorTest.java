@@ -1,13 +1,11 @@
 package net.tarau.testware.spi.metadata;
 
-import net.tarau.testware.api.annotation.Category;
-import net.tarau.testware.api.annotation.Description;
-import net.tarau.testware.api.annotation.Name;
-import net.tarau.testware.api.annotation.Tag;
+import net.tarau.testware.api.annotation.*;
 
 @Name("Base Descriptor")
 @Description("The description of Base Descriptor")
 @Tag({"b1", "b2"})
 @Category("Base")
+@Issue({"i0"})
 public class BaseDescriptorTest {
 }

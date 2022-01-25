@@ -1,14 +1,14 @@
 package net.tarau.testware.spi.metadata;
 
-import net.tarau.testware.api.annotation.Description;
-import net.tarau.testware.api.annotation.Name;
-import net.tarau.testware.api.annotation.Tag;
+import net.tarau.testware.api.annotation.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @Name("Test Descriptor")
+@Issue({"i1"})
+@Category("c1")
 class TestDescriptorTest extends BaseDescriptorTest {
 
     @Test
@@ -40,6 +40,30 @@ class TestDescriptorTest extends BaseDescriptorTest {
     void getDescription() throws Exception {
         TestDescriptor descriptor = create("getDescription").build();
         assertEquals("The Get Description", descriptor.getDescription());
+    }
+
+    @Test
+    @Description("The Get Description")
+    @Issue({"i2", "i3"})
+    @Bug
+    void getIssues() throws Exception {
+        TestDescriptor descriptor = create("getIssues").build();
+        Assertions.assertThat(descriptor.getIssues()).containsOnly("i0", "i1", "i2", "i3");
+        assertTrue(descriptor.isBug());
+    }
+
+    @Test
+    void getModule() throws Exception {
+        TestDescriptor descriptor = create("getIssues").module("m1").build();
+        assertEquals("m1", descriptor.getModule());
+    }
+
+    @Test
+    void getCategory() throws Exception {
+        TestDescriptor descriptor = create("getIssues").build();
+        assertEquals("c1", descriptor.getCategory());
+        descriptor = create("getIssues").category("c2").build();
+        assertEquals("c2", descriptor.getCategory());
     }
 
     @Test
