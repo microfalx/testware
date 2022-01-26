@@ -1,6 +1,9 @@
 package net.tarau.testware.core.model;
 
+import net.tarau.binserde.SerializerFactory;
 import net.tarau.binserde.annotation.Tag;
+import net.tarau.testware.api.Status;
+import net.tarau.testware.api.Type;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;
@@ -36,5 +39,14 @@ public abstract class AbstractModel<T extends AbstractModel<T>> {
         requireNonNull(timestamp);
         this.timestamp = timestamp;
         return (T) this;
+    }
+
+    static {
+        SerializerFactory serializerFactory = SerializerFactory.getInstance();
+        serializerFactory.register(Type.class, AbstractModel.BASE_ENUM_TAG);
+        serializerFactory.register(Status.class, AbstractModel.BASE_ENUM_TAG + 1);
+        serializerFactory.register(SessionModel.class);
+        serializerFactory.register(ForkModel.class);
+        serializerFactory.register(TestModel.class);
     }
 }

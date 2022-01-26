@@ -7,8 +7,10 @@ import net.tarau.testware.core.model.SessionModel;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collection;
 
+import static net.tarau.binserde.SerializerFactory.deserialize;
 import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
 
 public class ResourceRepository extends AbstractRepository {
@@ -21,9 +23,17 @@ public class ResourceRepository extends AbstractRepository {
         this.resource = resource;
     }
 
+    public Resource getResource() {
+        return resource;
+    }
+
     @Override
     public Collection<SessionModel> getSessions() throws IOException {
-        return null;
+        Collection<SessionModel> sessions = new ArrayList<>();
+        for (Resource sessionResource : resource.list()) {
+            sessions.add(deserialize(SessionModel.class, sessionResource.getInputStream()));
+        }
+        return sessions;
     }
 
     @Override

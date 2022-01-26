@@ -1,10 +1,7 @@
-package net.tarau.testware.core.repository;
+package net.tarau.testware.core.model;
 
 import net.tarau.testware.api.Status;
 import net.tarau.testware.api.Type;
-import net.tarau.testware.core.model.ForkModel;
-import net.tarau.testware.core.model.SessionModel;
-import net.tarau.testware.core.model.TestModel;
 import net.tarau.testware.spi.util.ExceptionUtils;
 
 import java.io.IOException;
@@ -15,7 +12,7 @@ public class TestGenerator {
 
     private final Random random = ThreadLocalRandom.current();
 
-    SessionModel createSession(int forkCount, int testCount) {
+    public SessionModel createSession(int forkCount, int testCount) {
         SessionModel model = new SessionModel();
         for (int i = 0; i < forkCount; i++) {
             model.add(createFork(testCount));
@@ -23,7 +20,7 @@ public class TestGenerator {
         return model;
     }
 
-    ForkModel createFork(int testCount) {
+    public ForkModel createFork(int testCount) {
         ForkModel model = new ForkModel();
         for (int i = 9; i < testCount; i++) {
             model.add(createTest());
@@ -31,7 +28,7 @@ public class TestGenerator {
         return model;
     }
 
-    TestModel createTest() {
+    public TestModel createTest() {
         TestModel model = new TestModel();
         updateTestInfo(model);
         updateState(model);

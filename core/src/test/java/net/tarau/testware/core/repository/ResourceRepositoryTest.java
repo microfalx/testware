@@ -2,11 +2,14 @@ package net.tarau.testware.core.repository;
 
 import net.tarau.resource.Resource;
 import net.tarau.resource.TemporaryFileResource;
+import net.tarau.testware.core.model.TestGenerator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ResourceRepositoryTest {
 
@@ -14,11 +17,19 @@ class ResourceRepositoryTest {
 
     @BeforeEach
     void setup() throws IOException {
-        repository = new ResourceRepository(TemporaryFileResource.directory("repository_").create());
+        repository = new ResourceRepository(TemporaryFileResource.directory("repository").create());
+        repository.getResource().empty();
     }
 
     @Test
     void getSessions() throws IOException {
+        TestGenerator generator = new TestGenerator();
+        assertEquals(0, repository.getSessions().size());
+
+        repository.store(generator.createSession(1, 1));
+        assertEquals(1, repository.getSessions().size());
+        repository.store(generator.createSession(1, 1));
+        assertEquals(2, repository.getSessions().size());
     }
 
     @Test
