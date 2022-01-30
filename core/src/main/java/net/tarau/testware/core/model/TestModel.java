@@ -4,9 +4,12 @@ import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
 import net.tarau.binserde.annotation.Tag;
 import net.tarau.testware.api.Status;
 import net.tarau.testware.api.Test;
+import net.tarau.testware.spi.util.CollectionUtils;
 
+import java.util.Collection;
 import java.util.Set;
 
+import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
 import static net.tarau.testware.core.model.AbstractModel.BASE_TAG;
 import static net.tarau.testware.spi.util.CollectionUtils.immutable;
 
@@ -52,6 +55,10 @@ public class TestModel extends AbstractModel<ForkModel> {
     @Tag(151)
     @TaggedFieldSerializer.Tag(151)
     private String stackTrace;
+
+    @Tag(160)
+    @TaggedFieldSerializer.Tag(160)
+    private Collection<HookModel> hooks;
 
     public String getId() {
         return className + "." + method;
@@ -162,6 +169,21 @@ public class TestModel extends AbstractModel<ForkModel> {
 
     public TestModel setStackTrace(String stackTrace) {
         this.stackTrace = stackTrace;
+        return this;
+    }
+
+    public Collection<HookModel> getHooks() {
+        return immutable(hooks);
+    }
+
+    public void setHooks(Collection<HookModel> hooks) {
+        this.hooks = hooks;
+    }
+
+    public TestModel add(HookModel hook) {
+        requireNonNull(hook);
+        hooks = CollectionUtils.required(hooks);
+        hooks.add(hook);
         return this;
     }
 }

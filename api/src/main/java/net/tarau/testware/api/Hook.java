@@ -2,6 +2,9 @@ package net.tarau.testware.api;
 
 import net.tarau.testware.api.metadata.MethodDescriptor;
 
+/**
+ * A test hooks (before all, before each, after each, after all)
+ */
 public interface Hook extends Result {
 
     /**
@@ -46,17 +49,6 @@ public interface Hook extends Result {
         /**
          * A hook called after all tests in a class.
          */
-        AFTER_ALL,
-
-        /**
-         * End-to-end tests replicates a user behavior with the software in a complete application
-         * environment. It verifies that various user flows work as expected.
-         */
-        E2E,
-
-        /**
-         * Any test except from above
-         */
-        OTHER
+        AFTER_ALL
     }
 }

@@ -1,9 +1,18 @@
 package net.tarau.testware.api;
 
+import java.time.Duration;
+
 /**
- * A result of a hook or test execution.
+ * Base interface for all results.
  */
 public interface Result {
+
+    /**
+     * Returns the amount of time spent to run a test.
+     *
+     * @return a non-null instance
+     */
+    Duration getDuration();
 
     /**
      * Returns the status associated with a test.

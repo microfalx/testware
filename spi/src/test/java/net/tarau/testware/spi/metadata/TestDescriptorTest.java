@@ -62,8 +62,6 @@ class TestDescriptorTest extends BaseDescriptorTest {
     void getCategory() throws Exception {
         TestDescriptor descriptor = create("getIssues").build();
         assertEquals("c1", descriptor.getCategory());
-        descriptor = create("getIssues").category("c2").build();
-        assertEquals("c2", descriptor.getCategory());
     }
 
     @Test

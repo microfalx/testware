@@ -1,12 +1,13 @@
 package net.tarau.testware.spi.metadata;
 
-import net.tarau.binserde.utils.ArgumentUtils;
 import net.tarau.testware.api.annotation.Category;
 import net.tarau.testware.api.annotation.Description;
 import net.tarau.testware.api.annotation.Name;
 import net.tarau.testware.api.annotation.Tag;
 
 import java.lang.annotation.Annotation;
+
+import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
 
 public final  class ClassDescriptor extends BaseDescriptor implements net.tarau.testware.api.metadata.ClassDescriptor {
 
@@ -33,7 +34,7 @@ public final  class ClassDescriptor extends BaseDescriptor implements net.tarau.
         private final Class<?> testClass;
 
         public Builder(Class<?> testClass) {
-            ArgumentUtils.requireNonNull(testClass);
+            requireNonNull(testClass);
             this.testClass = testClass;
         }
 

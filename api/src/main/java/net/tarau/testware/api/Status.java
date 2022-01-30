@@ -1,7 +1,7 @@
 package net.tarau.testware.api;
 
 /**
- * An enum with possible status for a test
+ * An enum with possible status for a test/hook.
  */
 public enum Status {
 

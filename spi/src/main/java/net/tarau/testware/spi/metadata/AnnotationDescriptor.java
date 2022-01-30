@@ -56,7 +56,7 @@ public abstract class AnnotationDescriptor implements AnnotationAwareDescriptor 
             return (B) this;
         }
 
-        protected D build() {
+        public D build() {
             D descriptor = createDescriptor();
             AnnotationDescriptor annotationDescriptor = descriptor;
             updateDescriptor(descriptor);

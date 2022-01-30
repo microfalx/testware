@@ -6,6 +6,7 @@ import net.tarau.testware.spi.util.CollectionUtils;
 
 import java.util.Collection;
 
+import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
 import static net.tarau.testware.core.model.AbstractModel.BASE_TAG;
 import static net.tarau.testware.spi.util.CollectionUtils.immutable;
 
@@ -26,6 +27,7 @@ public class SessionModel extends AbstractModel<SessionModel> {
     }
 
     public SessionModel add(ForkModel fork) {
+        requireNonNull(fork);
         forks = CollectionUtils.required(forks);
         forks.add(fork);
         return this;

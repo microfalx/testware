@@ -38,7 +38,7 @@
     <dependencies>
         <dependency>
             <groupId>net.tarau.testware</groupId>
-            <artifactId>spi</artifactId>
+            <artifactId>testware-spi</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

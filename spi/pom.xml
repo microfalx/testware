@@ -38,7 +38,7 @@
     <dependencies>
         <dependency>
             <groupId>net.tarau.testware</groupId>
-            <artifactId>api</artifactId>
+            <artifactId>testware-api</artifactId>
             <version>${project.version}</version>
         </dependency>
 

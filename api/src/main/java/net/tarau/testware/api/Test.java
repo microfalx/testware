@@ -2,6 +2,9 @@ package net.tarau.testware.api;
 
 import net.tarau.testware.api.metadata.TestDescriptor;
 
+/**
+ * A test result.
+ */
 public interface Test extends Result {
 
     /**

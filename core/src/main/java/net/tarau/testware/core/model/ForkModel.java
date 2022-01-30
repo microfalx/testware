@@ -2,12 +2,13 @@ package net.tarau.testware.core.model;
 
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
 import net.tarau.binserde.annotation.Tag;
-import net.tarau.testware.spi.util.CollectionUtils;
 
 import java.util.Collection;
 
+import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
 import static net.tarau.testware.core.model.AbstractModel.BASE_TAG;
 import static net.tarau.testware.spi.util.CollectionUtils.immutable;
+import static net.tarau.testware.spi.util.CollectionUtils.required;
 
 @Tag(BASE_TAG + 11)
 public class ForkModel extends AbstractModel<ForkModel> {
@@ -26,7 +27,8 @@ public class ForkModel extends AbstractModel<ForkModel> {
     }
 
     public void add(TestModel test) {
-        tests = CollectionUtils.required(tests);
+        requireNonNull(test);
+        tests = required(tests);
         tests.add(test);
     }
 }
