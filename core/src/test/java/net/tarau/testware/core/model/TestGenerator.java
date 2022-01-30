@@ -1,7 +1,7 @@
 package net.tarau.testware.core.model;
 
 import net.tarau.testware.api.Status;
-import net.tarau.testware.api.Type;
+import net.tarau.testware.api.Test;
 import net.tarau.testware.spi.util.ExceptionUtils;
 
 import java.io.IOException;
@@ -56,11 +56,11 @@ public class TestGenerator {
 
     private void updateType(TestModel model) {
         if (random.nextFloat() < 0.9) {
-            model.setType(Type.UNIT);
+            model.setType(Test.Type.UNIT);
         } else if (random.nextFloat() < 0.7) {
-            model.setType(Type.INTEGRATION);
+            model.setType(Test.Type.INTEGRATION);
         } else if (random.nextFloat() < 0.5) {
-            model.setType(Type.FUNCTIONAL);
+            model.setType(Test.Type.FUNCTIONAL);
         }
     }
 

@@ -1,12 +1,12 @@
 package net.tarau.testware.api.metadata;
 
-import net.tarau.testware.api.Status;
-import net.tarau.testware.api.Type;
-
 import java.lang.reflect.Method;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * Holds information about a test.
+ */
 public interface TestDescriptor extends AnnotationAwareDescriptor, MetadataAwareDescriptor {
 
     /**
@@ -18,20 +18,6 @@ public interface TestDescriptor extends AnnotationAwareDescriptor, MetadataAware
      * Get the {@link Method} associated with the current test or container, if available.
      */
     Optional<MethodDescriptor> getMethodDescriptor();
-
-    /**
-     * Returns the type of the test.
-     *
-     * @return a non-null instance
-     */
-    Type getType();
-
-    /**
-     * Returns the status associated with a test.
-     *
-     * @return a non-null instance
-     */
-    Status getStatus();
 
     /**
      * Returns the issue identifiers attached to the current test or container.
@@ -54,18 +40,6 @@ public interface TestDescriptor extends AnnotationAwareDescriptor, MetadataAware
      */
     boolean isFlaky();
 
-    /**
-     * Returns the failure message.
-     *
-     * @return the message, null if successful
-     */
-    String getFailureMessage();
 
-    /**
-     * Returns the exception thrown by a failed test.
-     *
-     * @return the exception, null if successful
-     */
-    Throwable getThrowable();
 
 }

@@ -1,5 +1,6 @@
 package net.tarau.testware.core.model;
 
+import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
 import net.tarau.binserde.annotation.Tag;
 import net.tarau.testware.spi.util.CollectionUtils;
 
@@ -12,6 +13,7 @@ import static net.tarau.testware.spi.util.CollectionUtils.immutable;
 public class ForkModel extends AbstractModel<ForkModel> {
 
     @Tag(100)
+    @TaggedFieldSerializer.Tag(100)
     private Collection<TestModel> tests;
 
     public Collection<TestModel> getTests() {

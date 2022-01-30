@@ -1,8 +1,5 @@
 package net.tarau.testware.spi.metadata;
 
-import net.tarau.binserde.utils.ArgumentUtils;
-import net.tarau.testware.api.Status;
-import net.tarau.testware.api.Type;
 import net.tarau.testware.api.annotation.Bug;
 import net.tarau.testware.api.annotation.Category;
 import net.tarau.testware.api.annotation.Issue;
@@ -21,11 +18,6 @@ public final class TestDescriptor extends BaseDescriptor implements net.tarau.te
     private Set<String> issues;
     private boolean bug;
     private boolean flaky;
-    private Type type;
-    private Status status;
-
-    private String failureMessage;
-    private Throwable throwable;
 
     public static Builder create(ClassDescriptor classDescriptor, MethodDescriptor methodDescriptor) {
         return new Builder(classDescriptor, methodDescriptor);
@@ -39,16 +31,6 @@ public final class TestDescriptor extends BaseDescriptor implements net.tarau.te
     @Override
     public Optional<MethodDescriptor> getMethodDescriptor() {
         return methodDescriptor != null ? Optional.of(methodDescriptor) : Optional.empty();
-    }
-
-    @Override
-    public Type getType() {
-        return type;
-    }
-
-    @Override
-    public Status getStatus() {
-        return status;
     }
 
     @Override
@@ -67,16 +49,6 @@ public final class TestDescriptor extends BaseDescriptor implements net.tarau.te
     }
 
     @Override
-    public String getFailureMessage() {
-        return failureMessage;
-    }
-
-    @Override
-    public Throwable getThrowable() {
-        return throwable;
-    }
-
-    @Override
     public String toString() {
         return "TestDescriptor{" +
                 "classDescriptor=" + classDescriptor +
@@ -89,14 +61,9 @@ public final class TestDescriptor extends BaseDescriptor implements net.tarau.te
         private final ClassDescriptor classDescriptor;
         private final MethodDescriptor methodDescriptor;
 
-        private Status status;
-        private Type type;
         private Set<String> issues;
         private boolean bug;
         private boolean flaky;
-
-        private String failureMessage;
-        private Throwable throwable;
 
         public Builder(ClassDescriptor classDescriptor, MethodDescriptor methodDescriptor) {
             requireNonNull(classDescriptor);
@@ -116,18 +83,6 @@ public final class TestDescriptor extends BaseDescriptor implements net.tarau.te
             return this;
         }
 
-        public Builder status(Status status) {
-            ArgumentUtils.requireNonNull(status);
-            this.status = status;
-            return this;
-        }
-
-        public Builder type(Type type) {
-            ArgumentUtils.requireNonNull(type);
-            this.type = type;
-            return this;
-        }
-
         public Builder issues(String... issues) {
             return issues(Arrays.asList(issues));
         }
@@ -138,16 +93,6 @@ public final class TestDescriptor extends BaseDescriptor implements net.tarau.te
                 this.issues = new HashSet<>();
             }
             this.issues.addAll(issues);
-            return this;
-        }
-
-        public Builder failureMessage(String failureMessage) {
-            this.failureMessage = failureMessage;
-            return this;
-        }
-
-        public Builder throwable(Throwable throwable) {
-            this.throwable = throwable;
             return this;
         }
 
@@ -176,10 +121,6 @@ public final class TestDescriptor extends BaseDescriptor implements net.tarau.te
             descriptor.issues = issues;
             descriptor.bug = bug;
             descriptor.flaky = flaky;
-            descriptor.status = status;
-            descriptor.type = type;
-            descriptor.failureMessage = failureMessage;
-            descriptor.throwable = throwable;
         }
 
     }

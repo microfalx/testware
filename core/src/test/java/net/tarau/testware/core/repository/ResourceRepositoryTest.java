@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ResourceRepositoryTest {
 
@@ -34,12 +34,22 @@ class ResourceRepositoryTest {
 
     @Test
     void findLastSession() throws IOException {
+        assertFalse(repository.findMostRecentSession().isPresent());
+        generateSessions(5);
+        assertTrue(repository.findMostRecentSession().isPresent());
     }
 
     @Test
     void store() throws IOException {
         TestGenerator generator = new TestGenerator();
         Resource resource = repository.store(generator.createSession(10, 10));
-        Assertions.assertThat(resource.length()).isGreaterThan(2000L);
+        Assertions.assertThat(resource.length()).isGreaterThan(1500L);
+    }
+
+    private void generateSessions(int sessionCount) throws IOException {
+        TestGenerator generator = new TestGenerator();
+        for (int i = 0; i < sessionCount; i++) {
+            repository.store(generator.createSession(1, 1));
+        }
     }
 }

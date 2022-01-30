@@ -1,5 +1,6 @@
 package net.tarau.testware.core.model;
 
+import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
 import net.tarau.binserde.annotation.Tag;
 import net.tarau.testware.spi.util.CollectionUtils;
 
@@ -9,9 +10,10 @@ import static net.tarau.testware.core.model.AbstractModel.BASE_TAG;
 import static net.tarau.testware.spi.util.CollectionUtils.immutable;
 
 @Tag(BASE_TAG + 12)
-public class SessionModel extends AbstractModel<ForkModel> {
+public class SessionModel extends AbstractModel<SessionModel> {
 
     @Tag(100)
+    @TaggedFieldSerializer.Tag(100)
     private Collection<ForkModel> forks;
 
     public Collection<ForkModel> getForks() {
@@ -28,4 +30,6 @@ public class SessionModel extends AbstractModel<ForkModel> {
         forks.add(fork);
         return this;
     }
+
+
 }

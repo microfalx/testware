@@ -1,9 +1,7 @@
 package net.tarau.testware.core.model;
 
-import net.tarau.binserde.SerializerFactory;
+import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
 import net.tarau.binserde.annotation.Tag;
-import net.tarau.testware.api.Status;
-import net.tarau.testware.api.Type;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;
@@ -17,9 +15,11 @@ public abstract class AbstractModel<T extends AbstractModel<T>> {
     public static final int BASE_TAG = 200;
 
     @Tag(1)
+    @TaggedFieldSerializer.Tag(1)
     private String id = UUID.randomUUID().toString();
 
     @Tag(2)
+    @TaggedFieldSerializer.Tag(2)
     private ZonedDateTime timestamp = ZonedDateTime.now();
 
     public String getId() {
@@ -41,12 +41,13 @@ public abstract class AbstractModel<T extends AbstractModel<T>> {
         return (T) this;
     }
 
-    static {
-        SerializerFactory serializerFactory = SerializerFactory.getInstance();
-        serializerFactory.register(Type.class, AbstractModel.BASE_ENUM_TAG);
-        serializerFactory.register(Status.class, AbstractModel.BASE_ENUM_TAG + 1);
-        serializerFactory.register(SessionModel.class);
-        serializerFactory.register(ForkModel.class);
-        serializerFactory.register(TestModel.class);
+    public T mostRecent(T value) {
+        if (value == null) return (T) this;
+        if (getTimestamp().isAfter(value.getTimestamp())) {
+            return (T) this;
+        } else {
+            return value;
+        }
     }
+
 }

@@ -1,7 +1,7 @@
 package net.tarau.testware.core.repository;
 
-import net.tarau.binserde.SerializerFactory;
 import net.tarau.resource.Resource;
+import net.tarau.testware.core.model.Serde;
 import net.tarau.testware.core.model.SessionModel;
 
 import java.io.IOException;
@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
-import static net.tarau.binserde.SerializerFactory.deserialize;
 import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
 
 public class ResourceRepository extends AbstractRepository {
@@ -31,14 +31,19 @@ public class ResourceRepository extends AbstractRepository {
     public Collection<SessionModel> getSessions() throws IOException {
         Collection<SessionModel> sessions = new ArrayList<>();
         for (Resource sessionResource : resource.list()) {
-            sessions.add(deserialize(SessionModel.class, sessionResource.getInputStream()));
+            sessions.add(Serde.deserialize(SessionModel.class, sessionResource.getInputStream()));
         }
         return sessions;
     }
 
     @Override
-    public SessionModel findLastSession() throws IOException {
-        return null;
+    public Optional<SessionModel> findMostRecentSession() throws IOException {
+        SessionModel mostRecent = null;
+        for (Resource sessionResource : resource.list()) {
+            SessionModel current = Serde.deserialize(SessionModel.class, sessionResource.getInputStream());
+            mostRecent = current.mostRecent(mostRecent);
+        }
+        return mostRecent != null ? Optional.of(mostRecent) : Optional.ofNullable(mostRecent);
     }
 
     @Override
@@ -47,7 +52,7 @@ public class ResourceRepository extends AbstractRepository {
 
         String fileName = "session_" + TIMESTAMP_FORMATTER.format(LocalDateTime.now()) + ".dat";
         Resource sessionResource = resource.resolve(fileName, Resource.Type.FILE);
-        SerializerFactory.serialize(session, sessionResource.getOutputStream());
+        Serde.serialize(session, sessionResource.getOutputStream());
         return sessionResource;
     }
 }

@@ -24,23 +24,48 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.tarau.testware</groupId>
-    <artifactId>junit</artifactId>
+    <artifactId>junit5</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <parent>
         <groupId>net.tarau.testware</groupId>
-		<artifactId>parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+        <artifactId>parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <name>TestWare - JUnit</name>
 
+    <properties>
+    </properties>
+
     <dependencies>
+
         <dependency>
             <groupId>net.tarau.testware</groupId>
             <artifactId>core</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <properties>
+                        <configurationParameters>
+                            junit.jupiter.extensions.autodetection.enabled = true
+                        </configurationParameters>
+                    </properties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

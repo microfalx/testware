@@ -1,8 +1,9 @@
 package net.tarau.testware.core.model;
 
+import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
 import net.tarau.binserde.annotation.Tag;
 import net.tarau.testware.api.Status;
-import net.tarau.testware.api.Type;
+import net.tarau.testware.api.Test;
 
 import java.util.Set;
 
@@ -13,31 +14,43 @@ import static net.tarau.testware.spi.util.CollectionUtils.immutable;
 public class TestModel extends AbstractModel<ForkModel> {
 
     @Tag(100)
+    @TaggedFieldSerializer.Tag(100)
     private String className;
     @Tag(101)
+    @TaggedFieldSerializer.Tag(101)
     private String method;
     @Tag(102)
+    @TaggedFieldSerializer.Tag(102)
     private String displayName;
     @Tag(103)
+    @TaggedFieldSerializer.Tag(103)
     private String description;
 
     @Tag(120)
+    @TaggedFieldSerializer.Tag(120)
     private Set<String> tags;
     @Tag(121)
+    @TaggedFieldSerializer.Tag(121)
     private Set<String> issues;
     @Tag(122)
+    @TaggedFieldSerializer.Tag(122)
     private boolean bug;
     @Tag(123)
+    @TaggedFieldSerializer.Tag(123)
     private boolean flaky;
 
     @Tag(140)
+    @TaggedFieldSerializer.Tag(140)
     private Status status;
     @Tag(141)
-    private Type type;
+    @TaggedFieldSerializer.Tag(141)
+    private Test.Type type;
 
     @Tag(150)
+    @TaggedFieldSerializer.Tag(150)
     private String failureMessage;
     @Tag(151)
+    @TaggedFieldSerializer.Tag(151)
     private String stackTrace;
 
     public String getId() {
@@ -125,11 +138,11 @@ public class TestModel extends AbstractModel<ForkModel> {
         return this;
     }
 
-    public Type getType() {
-        return type != null ? type : Type.OTHER;
+    public Test.Type getType() {
+        return type != null ? type : Test.Type.OTHER;
     }
 
-    public TestModel setType(Type type) {
+    public TestModel setType(Test.Type type) {
         this.type = type;
         return this;
     }
