@@ -42,7 +42,7 @@
 
         <dependency>
             <groupId>net.tarau.testware</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>testware-core</artifactId>
             <version>${project.version}</version>
         </dependency>
 
