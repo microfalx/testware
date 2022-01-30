@@ -24,7 +24,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.tarau.testware</groupId>
-    <artifactId>testware-core</artifactId>
+    <artifactId>testware-junit4</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <parent>
@@ -33,26 +33,38 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <name>TestWare - Core</name>
+    <name>TestWare - JUnit 4</name>
+
+    <properties>
+    </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>net.tarau.testware</groupId>
-            <artifactId>spi</artifactId>
+            <artifactId>core</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
-            <groupId>net.tarau</groupId>
-            <artifactId>binserde</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.tarau.vresource</groupId>
-            <artifactId>vresource-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.esotericsoftware</groupId>
-            <artifactId>kryo</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <properties>
+                        <configurationParameters>
+                        </configurationParameters>
+                    </properties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
