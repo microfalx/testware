@@ -146,7 +146,7 @@ public class TestModel extends AbstractModel<ForkModel> {
     }
 
     public Test.Type getType() {
-        return type != null ? type : Test.Type.OTHER;
+        return type != null ? type : Test.Type.UNIT;
     }
 
     public TestModel setType(Test.Type type) {

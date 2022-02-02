@@ -1,13 +1,19 @@
 package net.tarau.testware.spi;
 
+import net.tarau.testware.api.Hook;
 import net.tarau.testware.api.metadata.TestDescriptor;
+import net.tarau.testware.spi.util.CollectionUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
 
-public class Test extends Result implements net.tarau.testware.api.Test {
+public class Test extends Result implements net.tarau.testware.api.Test, Cloneable {
 
     private TestDescriptor descriptor;
     private Type type;
+    private Collection<net.tarau.testware.api.Hook> hooks = new ArrayList<>();
 
     public static Builder create(TestDescriptor descriptor) {
         return new Builder(descriptor);
@@ -21,6 +27,44 @@ public class Test extends Result implements net.tarau.testware.api.Test {
     @Override
     public Type getType() {
         return type;
+    }
+
+    @Override
+    public Collection<net.tarau.testware.api.Hook> getHooks() {
+        return CollectionUtils.immutable(hooks);
+    }
+
+    public Test withHook(Hook hook) {
+        requireNonNull(hook);
+        Test copy = copy();
+        copy.hooks.add(hook);
+        return copy;
+    }
+
+    protected Test copy() {
+        try {
+            return (Test) clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Test test = (Test) o;
+
+        if (!descriptor.equals(test.descriptor)) return false;
+        return type == test.type;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = descriptor.hashCode();
+        result = 31 * result + type.hashCode();
+        return result;
     }
 
     public static class Builder extends Result.Builder<Builder, Test> {

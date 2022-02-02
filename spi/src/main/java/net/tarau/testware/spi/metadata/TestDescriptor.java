@@ -49,6 +49,24 @@ public final class TestDescriptor extends BaseDescriptor implements net.tarau.te
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TestDescriptor that = (TestDescriptor) o;
+
+        if (!classDescriptor.equals(that.classDescriptor)) return false;
+        return methodDescriptor.equals(that.methodDescriptor);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = classDescriptor.hashCode();
+        result = 31 * result + methodDescriptor.hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "TestDescriptor{" +
                 "classDescriptor=" + classDescriptor +

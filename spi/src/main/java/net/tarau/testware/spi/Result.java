@@ -67,7 +67,7 @@ public abstract class Result implements net.tarau.testware.api.Result {
 
         protected abstract void updateResult(R result);
 
-        protected R build() {
+        public R build() {
             R result = createResult();
             updateResult(result);
             Result localResult = result;

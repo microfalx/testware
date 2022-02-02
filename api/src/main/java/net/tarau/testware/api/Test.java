@@ -2,6 +2,8 @@ package net.tarau.testware.api;
 
 import net.tarau.testware.api.metadata.TestDescriptor;
 
+import java.util.Collection;
+
 /**
  * A test result.
  */
@@ -13,6 +15,13 @@ public interface Test extends Result {
      * @return a non-null instance
      */
     TestDescriptor getDescriptor();
+
+    /**
+     * Return hooks associated with the test.
+     *
+     * @return a non-null instance
+     */
+    Collection<Hook> getHooks();
 
     /**
      * Returns the type of the test.
@@ -55,12 +64,7 @@ public interface Test extends Result {
          * End-to-end tests replicates a user behavior with the software in a complete application
          * environment. It verifies that various user flows work as expected.
          */
-        E2E,
-
-        /**
-         * Any test except from above
-         */
-        OTHER
+        E2E
     }
 
 }

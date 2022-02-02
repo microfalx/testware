@@ -22,6 +22,21 @@ public final class MethodDescriptor extends BaseDescriptor implements net.tarau.
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MethodDescriptor that = (MethodDescriptor) o;
+
+        return testMethod.equals(that.testMethod);
+    }
+
+    @Override
+    public int hashCode() {
+        return testMethod.hashCode();
+    }
+
+    @Override
     public String toString() {
         return "MethodDescriptor{" +
                 "testMethod=" + testMethod +
