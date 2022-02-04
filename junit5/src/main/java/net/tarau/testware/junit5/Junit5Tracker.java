@@ -7,6 +7,7 @@ import net.tarau.testware.spi.metadata.MethodDescriptor;
 import net.tarau.testware.spi.metadata.TestDescriptor;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
+import java.lang.reflect.Executable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -39,17 +40,18 @@ public class Junit5Tracker {
         });
     }
 
-    static MethodDescriptor getMethodDescriptor(ExtensionContext extensionContext) {
-        requireNonNull(extensionContext);
-        MethodDescriptor.Builder builder = MethodDescriptor.create(extensionContext.getRequiredTestMethod());
+    static MethodDescriptor getMethodDescriptor(ExtensionContext extensionContext, Executable executable) {
+        requireNonNull(executable);
+        MethodDescriptor.Builder builder = MethodDescriptor.create(executable);
         builder.displayName(extensionContext.getDisplayName())
                 .tags(extensionContext.getTags());
         return builder.build();
     }
 
-    static TestDescriptor getTestDescriptor(ExtensionContext extensionContext) {
+    static TestDescriptor getTestDescriptor(ExtensionContext extensionContext, Executable executable) {
         requireNonNull(extensionContext);
-        TestDescriptor.Builder builder = TestDescriptor.create(getClassDescriptor(extensionContext), getMethodDescriptor(extensionContext));
+        TestDescriptor.Builder builder = TestDescriptor.create(getClassDescriptor(extensionContext),
+                getMethodDescriptor(extensionContext, executable));
         return builder.build();
     }
 
@@ -63,10 +65,15 @@ public class Junit5Tracker {
         Test current = currentTest.get();
         if (current != null) {
             for (Hook hook : currentHooks.get()) {
+                if (hook.getType().isBefore()) continue;
                 current = current.withHook(hook);
             }
             tests.remove(current);
             tests.add(current);
+        }
+        for (Hook hook : currentHooks.get()) {
+            if (!hook.getType().isBefore()) continue;
+            test = test.withHook(hook);
         }
         currentHooks.remove();
         tests.add(test);

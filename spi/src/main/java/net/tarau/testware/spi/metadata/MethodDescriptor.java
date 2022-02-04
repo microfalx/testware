@@ -5,19 +5,19 @@ import net.tarau.testware.api.annotation.Description;
 import net.tarau.testware.api.annotation.Name;
 import net.tarau.testware.api.annotation.Tag;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.Executable;
 import java.util.Arrays;
 
 public final class MethodDescriptor extends BaseDescriptor implements net.tarau.testware.api.metadata.MethodDescriptor {
 
-    private Method testMethod;
+    private Executable testMethod;
 
-    public static Builder create(Method method) {
+    public static Builder create(Executable method) {
         return new Builder(method);
     }
 
     @Override
-    public Method getTestMethod() {
+    public Executable getTestMethod() {
         return testMethod;
     }
 
@@ -45,9 +45,9 @@ public final class MethodDescriptor extends BaseDescriptor implements net.tarau.
 
     public static class Builder extends BaseDescriptor.Builder<Builder, MethodDescriptor> {
 
-        private final Method testMethod;
+        private final Executable testMethod;
 
-        public Builder(Method testMethod) {
+        public Builder(Executable testMethod) {
             ArgumentUtils.requireNonNull(testMethod);
             this.testMethod = testMethod;
         }

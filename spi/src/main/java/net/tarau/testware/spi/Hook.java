@@ -23,6 +23,14 @@ public class Hook extends Result implements net.tarau.testware.api.Hook {
         return type;
     }
 
+    @Override
+    public String toString() {
+        return "Hook{" +
+                "descriptor=" + descriptor +
+                ", type=" + type +
+                "} " + super.toString();
+    }
+
     public static class Builder extends Result.Builder<Builder, Hook> {
 
         private final MethodDescriptor descriptor;

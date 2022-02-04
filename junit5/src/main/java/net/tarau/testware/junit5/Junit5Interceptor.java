@@ -62,7 +62,7 @@ public class Junit5Interceptor implements InvocationInterceptor {
             throw throwable;
         } finally {
             long duration = System.nanoTime() - startTime;
-            net.tarau.testware.spi.Hook.Builder builder = net.tarau.testware.spi.Hook.create(Junit5Tracker.getMethodDescriptor(extensionContext)).type(type);
+            net.tarau.testware.spi.Hook.Builder builder = net.tarau.testware.spi.Hook.create(Junit5Tracker.getMethodDescriptor(extensionContext, invocationContext.getExecutable())).type(type);
             builder.duration(Duration.ofNanos(duration));
             Junit5Tracker.registerHook(builder.build());
         }
@@ -84,8 +84,8 @@ public class Junit5Interceptor implements InvocationInterceptor {
         }
     }
 
-    private Test.Builder createTest(ExtensionContext extensionContext) {
-        TestDescriptor testDescriptor = Junit5Tracker.getTestDescriptor(extensionContext);
+    private Test.Builder createTest(ReflectiveInvocationContext<Method> invocationContext, ExtensionContext extensionContext) {
+        TestDescriptor testDescriptor = Junit5Tracker.getTestDescriptor(extensionContext, invocationContext.getExecutable());
         Test.Builder builder = Test.create(testDescriptor);
         if (testDescriptor.getClassDescriptor().isPresent()) {
             builder.type(getType(testDescriptor.getClassDescriptor().get()));
@@ -103,7 +103,7 @@ public class Junit5Interceptor implements InvocationInterceptor {
             throw throwable;
         } finally {
             long duration = System.nanoTime() - startTime;
-            Test.Builder builder = createTest(extensionContext);
+            Test.Builder builder = createTest(invocationContext, extensionContext);
             builder.duration(Duration.ofNanos(duration));
             Junit5Tracker.registerTest(builder.build());
         }

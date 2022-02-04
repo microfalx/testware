@@ -1,6 +1,6 @@
 package net.tarau.testware.api.metadata;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.Executable;
 
 /**
  * Holds information about a test method.
@@ -8,10 +8,10 @@ import java.lang.reflect.Method;
 public interface MethodDescriptor extends AnnotationAwareDescriptor, MetadataAwareDescriptor {
 
     /**
-     * Returns the test method for this descriptor.
+     * Returns the test method (method or constructor) for this descriptor.
      *
      * @return a non-null instance
      */
-    Method getTestMethod();
+    Executable getTestMethod();
 
 }

@@ -67,6 +67,15 @@ public class Test extends Result implements net.tarau.testware.api.Test, Cloneab
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Test{" +
+                "descriptor=" + descriptor +
+                ", type=" + type +
+                ", hooks=" + hooks +
+                "} " + super.toString();
+    }
+
     public static class Builder extends Result.Builder<Builder, Test> {
 
         private Type type = Type.UNIT;
