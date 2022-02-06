@@ -71,8 +71,9 @@ class TestDescriptorTest extends BaseDescriptorTest {
     }
 
     private TestDescriptor.Builder create(String methodName) throws Exception {
-        return TestDescriptor.create(ClassDescriptor.create(TestDescriptorTest.class).build(),
-                MethodDescriptor.create(TestDescriptorTest.class.getDeclaredMethod(methodName)).build());
+        ClassDescriptor classDescriptor = ClassDescriptor.create(TestDescriptorTest.class).build();
+        return TestDescriptor.create(classDescriptor,
+                MethodDescriptor.create(classDescriptor, TestDescriptorTest.class.getDeclaredMethod(methodName)).build());
     }
 
 }

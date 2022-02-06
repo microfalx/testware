@@ -1,5 +1,6 @@
 package net.tarau.testware.spi;
 
+import net.tarau.testware.spi.metadata.ClassDescriptor;
 import net.tarau.testware.spi.metadata.MethodDescriptor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,7 +12,8 @@ class HookTest {
     void createDefault() throws Exception {
         Hook hook = Hook.create(create("createDefault").build()).build();
         assertNotNull(hook);
-        assertNotNull(hook.getDescriptor());
+        assertNotNull(hook.getClassDescriptor().get());
+        assertNotNull(hook.getMethodDescriptor().get());
         assertEquals(Hook.Type.BEFORE_EACH, hook.getType());
     }
 
@@ -22,7 +24,8 @@ class HookTest {
     }
 
     private MethodDescriptor.Builder create(String methodName) throws Exception {
-        return MethodDescriptor.create(TestTest.class.getDeclaredMethod(methodName));
+        return MethodDescriptor.create(ClassDescriptor.create(HookTest.class).build(),
+                TestTest.class.getDeclaredMethod(methodName));
     }
 
 }

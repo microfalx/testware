@@ -55,7 +55,8 @@ class MethodDescriptorTest extends BaseDescriptorTest {
     }
 
     private MethodDescriptor.Builder create(String methodName) throws Exception {
-        return MethodDescriptor.create(MethodDescriptorTest.class.getDeclaredMethod(methodName));
+        return MethodDescriptor.create(ClassDescriptor.create(MethodDescriptorTest.class).build(),
+                MethodDescriptorTest.class.getDeclaredMethod(methodName));
     }
 
 }

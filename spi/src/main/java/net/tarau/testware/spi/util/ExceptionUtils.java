@@ -12,6 +12,7 @@ public class ExceptionUtils {
      * @return a non-null instance
      */
     public static String getStackTrace(Throwable throwable) {
+        if (throwable == null) return null;
         StringWriter writer = new StringWriter();
         PrintWriter printWriter = new PrintWriter(writer);
         throwable.printStackTrace(printWriter);

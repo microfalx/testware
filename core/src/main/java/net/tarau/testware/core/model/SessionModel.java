@@ -10,7 +10,7 @@ import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
 import static net.tarau.testware.core.model.AbstractModel.BASE_TAG;
 import static net.tarau.testware.spi.util.CollectionUtils.immutable;
 
-@Tag(BASE_TAG + 12)
+@Tag(BASE_TAG + 10)
 public class SessionModel extends AbstractModel<SessionModel> {
 
     @Tag(100)

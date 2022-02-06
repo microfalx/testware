@@ -3,6 +3,7 @@ package net.tarau.testware.api;
 import net.tarau.testware.api.metadata.TestDescriptor;
 
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * A test result.
@@ -14,7 +15,7 @@ public interface Test extends Result {
      *
      * @return a non-null instance
      */
-    TestDescriptor getDescriptor();
+    Optional<TestDescriptor> getTestDescriptor();
 
     /**
      * Return hooks associated with the test.

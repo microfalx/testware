@@ -8,6 +8,12 @@ import java.lang.reflect.Executable;
 public interface MethodDescriptor extends AnnotationAwareDescriptor, MetadataAwareDescriptor {
 
     /**
+     * Returns the class descriptor.
+     * @return a non-null instance
+     */
+    ClassDescriptor getClassDescriptor();
+
+    /**
      * Returns the test method (method or constructor) for this descriptor.
      *
      * @return a non-null instance

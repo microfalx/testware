@@ -1,6 +1,9 @@
 package net.tarau.testware.spi;
 
+import net.tarau.testware.api.metadata.ClassDescriptor;
 import net.tarau.testware.api.metadata.MethodDescriptor;
+
+import java.util.Optional;
 
 import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
 
@@ -14,8 +17,13 @@ public class Hook extends Result implements net.tarau.testware.api.Hook {
     }
 
     @Override
-    public MethodDescriptor getDescriptor() {
-        return descriptor;
+    public Optional<ClassDescriptor> getClassDescriptor() {
+        return Optional.of(descriptor.getClassDescriptor());
+    }
+
+    @Override
+    public Optional<MethodDescriptor> getMethodDescriptor() {
+        return Optional.of(descriptor);
     }
 
     @Override

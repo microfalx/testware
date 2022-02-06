@@ -10,10 +10,16 @@ import java.util.Arrays;
 
 public final class MethodDescriptor extends BaseDescriptor implements net.tarau.testware.api.metadata.MethodDescriptor {
 
+    private net.tarau.testware.api.metadata.ClassDescriptor classDescriptor;
     private Executable testMethod;
 
-    public static Builder create(Executable method) {
-        return new Builder(method);
+    public static Builder create(ClassDescriptor classDescriptor, Executable method) {
+        return new Builder(classDescriptor, method);
+    }
+
+    @Override
+    public net.tarau.testware.api.metadata.ClassDescriptor getClassDescriptor() {
+        return classDescriptor;
     }
 
     @Override
@@ -45,10 +51,13 @@ public final class MethodDescriptor extends BaseDescriptor implements net.tarau.
 
     public static class Builder extends BaseDescriptor.Builder<Builder, MethodDescriptor> {
 
+        private final net.tarau.testware.api.metadata.ClassDescriptor classDescriptor;
         private final Executable testMethod;
 
-        public Builder(Executable testMethod) {
+        public Builder(net.tarau.testware.api.metadata.ClassDescriptor classDescriptor, Executable testMethod) {
+            ArgumentUtils.requireNonNull(classDescriptor);
             ArgumentUtils.requireNonNull(testMethod);
+            this.classDescriptor = classDescriptor;
             this.testMethod = testMethod;
         }
 
@@ -73,6 +82,7 @@ public final class MethodDescriptor extends BaseDescriptor implements net.tarau.
 
         @Override
         protected void updateDescriptor(MethodDescriptor descriptor) {
+            descriptor.classDescriptor = classDescriptor;
             descriptor.testMethod = testMethod;
             updateFromAnnotations();
             super.updateDescriptor(descriptor);

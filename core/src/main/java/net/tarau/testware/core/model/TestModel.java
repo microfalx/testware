@@ -2,8 +2,10 @@ package net.tarau.testware.core.model;
 
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
 import net.tarau.binserde.annotation.Tag;
-import net.tarau.testware.api.Status;
+import net.tarau.binserde.utils.ArgumentUtils;
+import net.tarau.testware.api.Hook;
 import net.tarau.testware.api.Test;
+import net.tarau.testware.api.metadata.TestDescriptor;
 import net.tarau.testware.spi.util.CollectionUtils;
 
 import java.util.Collection;
@@ -13,92 +15,29 @@ import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
 import static net.tarau.testware.core.model.AbstractModel.BASE_TAG;
 import static net.tarau.testware.spi.util.CollectionUtils.immutable;
 
-@Tag(BASE_TAG + 10)
-public class TestModel extends AbstractModel<ForkModel> {
-
-    @Tag(100)
-    @TaggedFieldSerializer.Tag(100)
-    private String className;
-    @Tag(101)
-    @TaggedFieldSerializer.Tag(101)
-    private String method;
-    @Tag(102)
-    @TaggedFieldSerializer.Tag(102)
-    private String displayName;
-    @Tag(103)
-    @TaggedFieldSerializer.Tag(103)
-    private String description;
+@Tag(BASE_TAG + 12)
+public class TestModel extends ResultModel<TestModel> {
 
     @Tag(120)
     @TaggedFieldSerializer.Tag(120)
+    private Test.Type type;
+
+    @Tag(130)
+    @TaggedFieldSerializer.Tag(130)
     private Set<String> tags;
-    @Tag(121)
-    @TaggedFieldSerializer.Tag(121)
+    @Tag(131)
+    @TaggedFieldSerializer.Tag(131)
     private Set<String> issues;
-    @Tag(122)
-    @TaggedFieldSerializer.Tag(122)
+    @Tag(132)
+    @TaggedFieldSerializer.Tag(132)
     private boolean bug;
-    @Tag(123)
-    @TaggedFieldSerializer.Tag(123)
+    @Tag(133)
+    @TaggedFieldSerializer.Tag(133)
     private boolean flaky;
 
     @Tag(140)
     @TaggedFieldSerializer.Tag(140)
-    private Status status;
-    @Tag(141)
-    @TaggedFieldSerializer.Tag(141)
-    private Test.Type type;
-
-    @Tag(150)
-    @TaggedFieldSerializer.Tag(150)
-    private String failureMessage;
-    @Tag(151)
-    @TaggedFieldSerializer.Tag(151)
-    private String stackTrace;
-
-    @Tag(160)
-    @TaggedFieldSerializer.Tag(160)
     private Collection<HookModel> hooks;
-
-    public String getId() {
-        return className + "." + method;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public TestModel setClassName(String className) {
-        this.className = className;
-        return this;
-    }
-
-    public String getMethod() {
-        return method;
-    }
-
-    public TestModel setMethod(String method) {
-        this.method = method;
-        return this;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public TestModel setDisplayName(String displayName) {
-        this.displayName = displayName;
-        return this;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public TestModel setDescription(String description) {
-        this.description = description;
-        return this;
-    }
 
     public Set<String> getTags() {
         return immutable(tags);
@@ -136,39 +75,12 @@ public class TestModel extends AbstractModel<ForkModel> {
         return this;
     }
 
-    public Status getStatus() {
-        return status != null ? status : Status.NA;
-    }
-
-    public TestModel setStatus(Status status) {
-        this.status = status;
-        return this;
-    }
-
     public Test.Type getType() {
         return type != null ? type : Test.Type.UNIT;
     }
 
     public TestModel setType(Test.Type type) {
         this.type = type;
-        return this;
-    }
-
-    public String getFailureMessage() {
-        return failureMessage;
-    }
-
-    public TestModel setFailureMessage(String failureMessage) {
-        this.failureMessage = failureMessage;
-        return this;
-    }
-
-    public String getStackTrace() {
-        return stackTrace;
-    }
-
-    public TestModel setStackTrace(String stackTrace) {
-        this.stackTrace = stackTrace;
         return this;
     }
 
@@ -185,5 +97,25 @@ public class TestModel extends AbstractModel<ForkModel> {
         hooks = CollectionUtils.required(hooks);
         hooks.add(hook);
         return this;
+    }
+
+    public static TestModel from(Test test) {
+        ArgumentUtils.requireNonNull(test);
+        TestModel model = new TestModel();
+        ResultModel.updateResult(test, model);
+        if (test.getTestDescriptor().isPresent()) {
+            TestDescriptor testDescriptor = test.getTestDescriptor().get();
+            model.setType(test.getType());
+            model.setDisplayName(testDescriptor.getDisplayName());
+            model.setBug(testDescriptor.isBug());
+            model.setFlaky(testDescriptor.isFlaky());
+            model.setIssues(testDescriptor.getIssues());
+            model.setTags(testDescriptor.getTags());
+
+        }
+        for (Hook hook : test.getHooks()) {
+            model.add(HookModel.from(hook));
+        }
+        return model;
     }
 }

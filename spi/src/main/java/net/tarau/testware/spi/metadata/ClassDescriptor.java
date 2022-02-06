@@ -9,7 +9,7 @@ import java.lang.annotation.Annotation;
 
 import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
 
-public final  class ClassDescriptor extends BaseDescriptor implements net.tarau.testware.api.metadata.ClassDescriptor {
+public final class ClassDescriptor extends BaseDescriptor implements net.tarau.testware.api.metadata.ClassDescriptor {
 
     private Class<?> testClass;
 

@@ -1,6 +1,7 @@
 package net.tarau.testware.core.repository;
 
 import net.tarau.resource.Resource;
+import net.tarau.testware.core.model.ForkModel;
 import net.tarau.testware.core.model.Serde;
 import net.tarau.testware.core.model.SessionModel;
 
@@ -16,6 +17,8 @@ import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
 public class ResourceRepository extends AbstractRepository {
 
     private static final DateTimeFormatter TIMESTAMP_FORMATTER = DateTimeFormatter.ofPattern("yyyyDDmm_HHmmss");
+    private static final String SESSION_PREFIX = "session_";
+    private static final String FORK_PREFIX = "fork_";
     private final Resource resource;
 
     public ResourceRepository(Resource resource) {
@@ -30,10 +33,23 @@ public class ResourceRepository extends AbstractRepository {
     @Override
     public Collection<SessionModel> getSessions() throws IOException {
         Collection<SessionModel> sessions = new ArrayList<>();
-        for (Resource sessionResource : resource.list()) {
-            sessions.add(Serde.deserialize(SessionModel.class, sessionResource.getInputStream()));
+        for (Resource resource : resource.list()) {
+            if (!resource.getName().startsWith(SESSION_PREFIX)) continue;
+            ;
+            sessions.add(Serde.deserialize(SessionModel.class, resource.getInputStream()));
         }
         return sessions;
+    }
+
+    @Override
+    public Collection<ForkModel> getForks() throws IOException {
+        Collection<ForkModel> forks = new ArrayList<>();
+        for (Resource resource : resource.list()) {
+            if (!resource.getName().startsWith(FORK_PREFIX)) continue;
+            ;
+            forks.add(Serde.deserialize(ForkModel.class, resource.getInputStream()));
+        }
+        return forks;
     }
 
     @Override
@@ -50,9 +66,19 @@ public class ResourceRepository extends AbstractRepository {
     public Resource store(SessionModel session) throws IOException {
         requireNonNull(session);
 
-        String fileName = "session_" + TIMESTAMP_FORMATTER.format(LocalDateTime.now()) + ".dat";
+        String fileName = SESSION_PREFIX + TIMESTAMP_FORMATTER.format(LocalDateTime.now()) + ".dat";
         Resource sessionResource = resource.resolve(fileName, Resource.Type.FILE);
         Serde.serialize(session, sessionResource.getOutputStream());
+        return sessionResource;
+    }
+
+    @Override
+    public Resource store(ForkModel fork) throws IOException {
+        requireNonNull(fork);
+
+        String fileName = FORK_PREFIX + TIMESTAMP_FORMATTER.format(LocalDateTime.now()) + ".dat";
+        Resource sessionResource = resource.resolve(fileName, Resource.Type.FILE);
+        Serde.serialize(fork, sessionResource.getOutputStream());
         return sessionResource;
     }
 }

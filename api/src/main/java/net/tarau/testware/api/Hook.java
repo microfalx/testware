@@ -1,18 +1,9 @@
 package net.tarau.testware.api;
 
-import net.tarau.testware.api.metadata.MethodDescriptor;
-
 /**
  * A test hooks (before all, before each, after each, after all)
  */
 public interface Hook extends Result {
-
-    /**
-     * Returns the descriptor of this hook.
-     *
-     * @return a non-null instance
-     */
-    MethodDescriptor getDescriptor();
 
     /**
      * Returns the type of the hook.

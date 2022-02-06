@@ -1,17 +1,20 @@
 package net.tarau.testware.spi;
 
 import net.tarau.testware.api.Hook;
+import net.tarau.testware.api.metadata.ClassDescriptor;
+import net.tarau.testware.api.metadata.MethodDescriptor;
 import net.tarau.testware.api.metadata.TestDescriptor;
 import net.tarau.testware.spi.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
 
 public class Test extends Result implements net.tarau.testware.api.Test, Cloneable {
 
-    private TestDescriptor descriptor;
+    private TestDescriptor testDescriptor;
     private Type type;
     private Collection<net.tarau.testware.api.Hook> hooks = new ArrayList<>();
 
@@ -20,8 +23,18 @@ public class Test extends Result implements net.tarau.testware.api.Test, Cloneab
     }
 
     @Override
-    public TestDescriptor getDescriptor() {
-        return descriptor;
+    public Optional<ClassDescriptor> getClassDescriptor() {
+        return testDescriptor.getClassDescriptor();
+    }
+
+    @Override
+    public Optional<MethodDescriptor> getMethodDescriptor() {
+        return testDescriptor.getMethodDescriptor();
+    }
+
+    @Override
+    public Optional<TestDescriptor> getTestDescriptor() {
+        return Optional.of(testDescriptor);
     }
 
     @Override
@@ -56,34 +69,30 @@ public class Test extends Result implements net.tarau.testware.api.Test, Cloneab
 
         Test test = (Test) o;
 
-        if (!descriptor.equals(test.descriptor)) return false;
+        if (!testDescriptor.equals(test.testDescriptor)) return false;
         return type == test.type;
     }
 
     @Override
     public int hashCode() {
-        int result = descriptor.hashCode();
+        int result = testDescriptor.hashCode();
         result = 31 * result + type.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return "Test{" +
-                "descriptor=" + descriptor +
-                ", type=" + type +
-                ", hooks=" + hooks +
-                "} " + super.toString();
+        return "Test{" + "descriptor=" + testDescriptor + ", type=" + type + ", hooks=" + hooks + "} " + super.toString();
     }
 
     public static class Builder extends Result.Builder<Builder, Test> {
 
         private Type type = Type.UNIT;
-        private final TestDescriptor descriptor;
+        private final TestDescriptor testDescriptor;
 
-        public Builder(TestDescriptor descriptor) {
-            requireNonNull(descriptor);
-            this.descriptor = descriptor;
+        public Builder(TestDescriptor testDescriptor) {
+            requireNonNull(testDescriptor);
+            this.testDescriptor = testDescriptor;
         }
 
         public Builder type(Type type) {
@@ -99,7 +108,7 @@ public class Test extends Result implements net.tarau.testware.api.Test, Cloneab
 
         @Override
         protected void updateResult(Test result) {
-            result.descriptor = descriptor;
+            result.testDescriptor = testDescriptor;
             result.type = type;
         }
     }

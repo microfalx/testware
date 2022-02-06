@@ -40,7 +40,7 @@ public class TestGenerator {
     private void updateTestInfo(TestModel model) {
         model.setClassName("net.tarau.testware.Test" + random.nextInt(10));
         int index = random.nextInt(20);
-        model.setMethod("test" + index);
+        model.setMethodName("test" + index);
         model.setDisplayName("Test " + index);
     }
 

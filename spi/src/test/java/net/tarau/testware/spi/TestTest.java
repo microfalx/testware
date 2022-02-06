@@ -13,7 +13,7 @@ class TestTest {
     void createDefault() throws Exception {
         Test test = Test.create(create("createDefault").build()).build();
         assertNotNull(test);
-        assertNotNull(test.getDescriptor());
+        assertNotNull(test.getTestDescriptor());
         assertEquals(net.tarau.testware.api.Test.Type.UNIT, test.getType());
     }
 
@@ -24,6 +24,8 @@ class TestTest {
     }
 
     private TestDescriptor.Builder create(String methodName) throws Exception {
-        return TestDescriptor.create(ClassDescriptor.create(TestTest.class).build(), MethodDescriptor.create(TestTest.class.getDeclaredMethod(methodName)).build());
+        ClassDescriptor classDescriptor = ClassDescriptor.create(TestTest.class).build();
+        return TestDescriptor.create(classDescriptor,
+                MethodDescriptor.create(classDescriptor, TestTest.class.getDeclaredMethod(methodName)).build());
     }
 }

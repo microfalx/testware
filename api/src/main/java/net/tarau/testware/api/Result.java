@@ -1,11 +1,26 @@
 package net.tarau.testware.api;
 
+import net.tarau.testware.api.metadata.ClassDescriptor;
+import net.tarau.testware.api.metadata.MethodDescriptor;
+
+import java.lang.reflect.Method;
 import java.time.Duration;
+import java.util.Optional;
 
 /**
  * Base interface for all results.
  */
 public interface Result {
+
+    /**
+     * Get the {@link Class} associated with the current test or container, if available.
+     */
+    Optional<ClassDescriptor> getClassDescriptor();
+
+    /**
+     * Get the {@link Method} associated with the current test or container, if available.
+     */
+    Optional<MethodDescriptor> getMethodDescriptor();
 
     /**
      * Returns the amount of time spent to run a test.
