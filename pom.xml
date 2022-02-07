@@ -74,6 +74,9 @@
         <assertj.version>3.22.0</assertj.version>
         <jmh.version>1.34</jmh.version>
         <kryo.version>5.2.1</kryo.version>
+        <thymeleaf.version>3.0.15.RELEASE</thymeleaf.version>
+        <gson.version>2.8.9</gson.version>
+        <gson-fire.version>1.8.4</gson-fire.version>
         <binserde.version>1.0.0-SNAPSHOT</binserde.version>
         <vresource.version>1.0.0-SNAPSHOT</vresource.version>
     </properties>
@@ -106,6 +109,24 @@
                 <groupId>net.tarau.vresource</groupId>
                 <artifactId>vresource-core</artifactId>
                 <version>${vresource.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.thymeleaf</groupId>
+                <artifactId>thymeleaf</artifactId>
+                <version>${thymeleaf.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.gsonfire</groupId>
+                <artifactId>gson-fire</artifactId>
+                <version>${gson-fire.version}</version>
             </dependency>
 
             <!-- Tests -->

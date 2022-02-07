@@ -36,6 +36,27 @@
     <name>TestWare - Reporting</name>
 
     <dependencies>
+
+        <dependency>
+            <groupId>net.tarau.testware</groupId>
+            <artifactId>testware-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.gsonfire</groupId>
+            <artifactId>gson-fire</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
