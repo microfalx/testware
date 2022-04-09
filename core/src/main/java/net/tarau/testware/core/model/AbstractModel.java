@@ -1,12 +1,12 @@
-package net.tarau.testware.core.model;
+package net.microfalx.testware.core.model;
 
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
-import net.tarau.binserde.annotation.Tag;
+import net.microfalx.binserde.annotation.Tag;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
-import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
+import static net.microfalx.binserde.utils.ArgumentUtils.requireNonNull;
 
 @SuppressWarnings("unchecked")
 public abstract class AbstractModel<T extends AbstractModel<T>> {

@@ -1,6 +1,6 @@
-package net.tarau.testware.reporting.template;
+package net.microfalx.testware.reporting.template;
 
-import net.tarau.binserde.utils.ArgumentUtils;
+import net.microfalx.binserde.utils.ArgumentUtils;
 
 /**
  * Holds a page inside a site.

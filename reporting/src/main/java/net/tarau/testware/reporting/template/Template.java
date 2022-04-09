@@ -1,9 +1,9 @@
-package net.tarau.testware.reporting.template;
+package net.microfalx.testware.reporting.template;
 
-import net.tarau.binserde.utils.ArgumentUtils;
-import net.tarau.testware.reporting.ReportingException;
-import net.tarau.testware.reporting.utils.StringUtils;
-import net.tarau.testware.reporting.utils.TimeUtils;
+import net.microfalx.binserde.utils.ArgumentUtils;
+import net.microfalx.testware.reporting.ReportingException;
+import net.microfalx.testware.reporting.utils.StringUtils;
+import net.microfalx.testware.reporting.utils.TimeUtils;
 import org.apache.commons.collections.ExtendedProperties;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 /**
  * Generates the site.
  * <p>
- * The class works with a {@link  net.tarau.testware.core.repository.Repository} and renders the site using the latest session.
+ * The class works with a {@link  net.microfalx.testware.core.repository.Repository} and renders the site using the latest session.
  * The site is generated in such a way to preserve previously generated sessions and provides aggregates statistics but also
  * links to the previous sessions.
  */
@@ -35,7 +35,7 @@ public class Template {
     private static final Logger LOGGER = Logger.getLogger(Template.class.getName());
 
     private final Page page;
-    private final net.tarau.resource.Resource resource;
+    private final net.microfalx.resource.Resource resource;
     private final String template;
 
     private VelocityEngine engine;
@@ -43,11 +43,11 @@ public class Template {
 
     private final Collection<String> globals = new ArrayList<>();
 
-    public static Template create(Page page, net.tarau.resource.Resource resource, String template) {
+    public static Template create(Page page, net.microfalx.resource.Resource resource, String template) {
         return new Template(page, resource, template);
     }
 
-    private Template(Page page, net.tarau.resource.Resource resource, String template) {
+    private Template(Page page, net.microfalx.resource.Resource resource, String template) {
         ArgumentUtils.requireNonNull(page);
         ArgumentUtils.requireNonNull(template);
         ArgumentUtils.requireNonNull(resource);
@@ -71,7 +71,7 @@ public class Template {
      *
      * @return a non-null instance
      */
-    public net.tarau.resource.Resource getResource() {
+    public net.microfalx.resource.Resource getResource() {
         return resource;
     }
 

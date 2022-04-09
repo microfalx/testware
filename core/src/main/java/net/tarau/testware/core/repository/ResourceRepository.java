@@ -1,9 +1,9 @@
-package net.tarau.testware.core.repository;
+package net.microfalx.testware.core.repository;
 
-import net.tarau.resource.Resource;
-import net.tarau.testware.core.model.ForkModel;
-import net.tarau.testware.core.model.Serde;
-import net.tarau.testware.core.model.SessionModel;
+import net.microfalx.resource.Resource;
+import net.microfalx.testware.core.model.ForkModel;
+import net.microfalx.testware.core.model.Serde;
+import net.microfalx.testware.core.model.SessionModel;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
-import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
+import static net.microfalx.binserde.utils.ArgumentUtils.requireNonNull;
 
 public class ResourceRepository extends AbstractRepository {
 

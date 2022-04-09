@@ -23,12 +23,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.tarau.testware</groupId>
+    <groupId>net.microfalx.testware</groupId>
     <artifactId>testware-spi</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <parent>
-        <groupId>net.tarau.testware</groupId>
+        <groupId>net.microfalx.testware</groupId>
 		<artifactId>testware-parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
     </parent>
@@ -37,15 +37,15 @@
 
     <dependencies>
         <dependency>
-            <groupId>net.tarau.testware</groupId>
+            <groupId>net.microfalx.testware</groupId>
             <artifactId>testware-api</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <!-- Third Party -->
         <dependency>
-            <groupId>net.tarau.vresource</groupId>
-            <artifactId>vresource-core</artifactId>
+            <groupId>net.microfalx.resource</groupId>
+            <artifactId>resource-core</artifactId>
         </dependency>
     </dependencies>
 

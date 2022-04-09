@@ -1,4 +1,4 @@
-package net.tarau.testware.reporting.template;
+package net.microfalx.testware.reporting.template;
 
 import java.util.ArrayList;
 import java.util.Collection;

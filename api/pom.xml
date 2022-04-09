@@ -23,12 +23,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.tarau.testware</groupId>
+    <groupId>net.microfalx.testware</groupId>
     <artifactId>testware-api</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <parent>
-        <groupId>net.tarau.testware</groupId>
+        <groupId>net.microfalx.testware</groupId>
 		<artifactId>testware-parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
     </parent>

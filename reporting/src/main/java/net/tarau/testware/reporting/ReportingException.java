@@ -1,4 +1,4 @@
-package net.tarau.testware.reporting;
+package net.microfalx.testware.reporting;
 
 public class ReportingException extends RuntimeException{
 

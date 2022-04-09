@@ -1,4 +1,4 @@
-package net.tarau.testware.reporting.utils;
+package net.microfalx.testware.reporting.utils;
 
 import java.util.Iterator;
 import java.util.Objects;

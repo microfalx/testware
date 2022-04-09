@@ -23,7 +23,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.tarau.testware</groupId>
+    <groupId>net.microfalx.testware</groupId>
     <artifactId>testware-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -79,7 +79,7 @@
         <gson-fire.version>1.8.4</gson-fire.version>
         <jackson.version>2.13.1</jackson.version>
         <binserde.version>1.0.0-SNAPSHOT</binserde.version>
-        <vresource.version>1.0.0-SNAPSHOT</vresource.version>
+        <resource.version>1.0.0-SNAPSHOT</resource.version>
     </properties>
 
     <developers>
@@ -95,7 +95,7 @@
             <!-- Runtime -->
 
             <dependency>
-                <groupId>net.tarau</groupId>
+                <groupId>net.microfalx</groupId>
                 <artifactId>binserde</artifactId>
                 <version>${binserde.version}</version>
             </dependency>
@@ -107,9 +107,9 @@
             </dependency>
 
             <dependency>
-                <groupId>net.tarau.vresource</groupId>
-                <artifactId>vresource-core</artifactId>
-                <version>${vresource.version}</version>
+                <groupId>net.microfalx.resource</groupId>
+                <artifactId>resource-core</artifactId>
+                <version>${resource.version}</version>
             </dependency>
 
             <dependency>
@@ -172,7 +172,7 @@
         <!-- Runtime -->
 
         <dependency>
-            <groupId>net.tarau</groupId>
+            <groupId>net.microfalx</groupId>
             <artifactId>binserde</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>

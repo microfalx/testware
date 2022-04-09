@@ -1,14 +1,14 @@
-package net.tarau.testware.core.model;
+package net.microfalx.testware.core.model;
 
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
-import net.tarau.binserde.annotation.Tag;
+import net.microfalx.binserde.annotation.Tag;
 
 import java.util.Collection;
 
-import static net.tarau.binserde.utils.ArgumentUtils.requireNonNull;
-import static net.tarau.testware.core.model.AbstractModel.BASE_TAG;
-import static net.tarau.testware.spi.util.CollectionUtils.immutable;
-import static net.tarau.testware.spi.util.CollectionUtils.required;
+import static net.microfalx.binserde.utils.ArgumentUtils.requireNonNull;
+import static net.microfalx.testware.core.model.AbstractModel.BASE_TAG;
+import static net.microfalx.testware.spi.util.CollectionUtils.immutable;
+import static net.microfalx.testware.spi.util.CollectionUtils.required;
 
 @Tag(BASE_TAG + 11)
 public class ForkModel extends AbstractModel<ForkModel> {

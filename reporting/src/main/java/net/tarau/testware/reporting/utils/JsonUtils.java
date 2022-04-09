@@ -1,4 +1,4 @@
-package net.tarau.testware.reporting.utils;
+package net.microfalx.testware.reporting.utils;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
