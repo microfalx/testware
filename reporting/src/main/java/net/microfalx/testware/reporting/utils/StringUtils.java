@@ -149,7 +149,7 @@ public class StringUtils {
     }
 
     /**
-     * Returns a > separated string with a name for each item in the collection.
+     * Returns a '&gt;' separated string with a name for each item in the collection.
      *
      * @param items items
      * @return a non-null string
@@ -173,7 +173,7 @@ public class StringUtils {
     /**
      * Capitalizes all the words in the given string.
      * <p>
-     * If the string has <code>_</code> or <code>-</code> character, that would be replace by <code> </code>.
+     * If the string has <code>_</code> or <code>-</code> character, that would be replaced by <code> </code>.
      *
      * @param value the string value
      * @return capitalized string

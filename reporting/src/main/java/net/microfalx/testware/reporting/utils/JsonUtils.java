@@ -18,6 +18,7 @@ public class JsonUtils {
      *
      * @param value the value to convert
      * @return the serialized version
+     * @throws IOException in case of I/O failure
      */
     public static String toJson(Object value) throws IOException {
         StringWriter sw = new StringWriter();
@@ -29,6 +30,8 @@ public class JsonUtils {
      * Converts an object to JSON representation.
      *
      * @param value the value to convert
+     * @param writer the writer
+     * @throws IOException in case of I/O failure
      */
     public static void toJson(Object value, Writer writer) throws IOException {
         ObjectMapper objectMapper = createObjectMapper();
